@@ -34,7 +34,6 @@ namespace HamsterCheese.AmongUsMemory
         static Dictionary<string, CancellationTokenSource> Tokens = new Dictionary<string, CancellationTokenSource>();
         static System.Action<uint> onChangeShipStatus;
 
-
         static void _ObserveShipStatus()
         {
             while (Tokens.ContainsKey("ObserveShipStatus") && Tokens["ObserveShipStatus"].IsCancellationRequested == false)
