@@ -18,7 +18,6 @@ namespace YourCheese
             while (true)
             {
                 Console.Clear();
-                Console.WriteLine("Test Read Player Datas..");
                 PrintRow("offset", "Name", "OwnerId", "PlayerId", "Color", "spawnid", "spawnflag");
                 PrintLine();
 
@@ -76,7 +75,7 @@ namespace YourCheese
                     Console.ForegroundColor = ConsoleColor.White;
                     PrintLine();
                 }
-                System.Threading.Thread.Sleep(1000);
+                System.Threading.Thread.Sleep(2500);
             }
         }
 

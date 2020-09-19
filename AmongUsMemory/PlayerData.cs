@@ -1,6 +1,4 @@
-﻿
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -17,16 +15,11 @@ namespace HamsterCheese.AmongUsMemory
         public PlayerControl Instance;
         public System.Action<Vector2, byte> onDie;
         public IntPtr PlayerControl_GetData_Offset = IntPtr.Zero;
-
-
         private string playerInfoOffset = null;
         public IntPtr playerInfoOffset_ptr;
         public IntPtr offset_ptr;
         public string offset_str;
-
-
         Dictionary<string, CancellationTokenSource> Tokens = new Dictionary<string, CancellationTokenSource>();
-
 
         public void ObserveState()
         {
@@ -39,7 +32,6 @@ namespace HamsterCheese.AmongUsMemory
                 }
             }
         }
-
 
         /// <summary>
         /// PlayerInfo 가져오기 
@@ -56,7 +48,6 @@ namespace HamsterCheese.AmongUsMemory
                     playerInfoOffset_ptr = new IntPtr(ptr);
                     m_pInfo = pInfo;
                     return m_pInfo;
-
                 }
                 else
                 {
@@ -64,11 +55,9 @@ namespace HamsterCheese.AmongUsMemory
                     m_pInfo = pInfo;
                     return m_pInfo;
                 }
-
             }
         }
         private PlayerInfo? m_pInfo = null;
-
 
         public LightSource LightSource
         {
@@ -111,8 +100,6 @@ namespace HamsterCheese.AmongUsMemory
             Cheese.mem.WriteMemory(targetPointer.GetAddress(), "float", value.ToString());
         }
 
-
-
         public void StopObserveState()
         {
             var key = Tokens.ContainsKey("ObserveState");
@@ -150,7 +137,6 @@ namespace HamsterCheese.AmongUsMemory
                         System.Threading.Thread.Sleep(25);
                     }
                 }, cts.Token);
-
                 Tokens.Add("ObserveState", cts);
             }
 
@@ -171,7 +157,6 @@ namespace HamsterCheese.AmongUsMemory
         {
             Instance = Utils.FromBytes<PlayerControl>(Cheese.mem.ReadBytes(offset_str, Utils.SizeOf<PlayerControl>()));
         }
-
         public bool IsLocalPlayer
         {
             get
@@ -183,7 +168,6 @@ namespace HamsterCheese.AmongUsMemory
                 }
             }
         }
-
 
         public Vector2 GetSyncPosition()
         {
@@ -203,7 +187,6 @@ namespace HamsterCheese.AmongUsMemory
                     return Vector2.Zero;
                 }
             }
-
 
             catch (Exception e)
             {
@@ -234,9 +217,5 @@ namespace HamsterCheese.AmongUsMemory
                 return Vector2.Zero;
             }
         }
-
-
-
-
     }
 }
