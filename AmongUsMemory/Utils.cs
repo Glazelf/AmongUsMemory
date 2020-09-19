@@ -39,7 +39,7 @@ namespace HamsterCheese.AmongUsMemory
 
         public static IntPtr GetMemberPointer(IntPtr basePtr, Type type, string fieldName)
         {
-            var offset = GetOffset(type, fieldName); 
+            var offset = GetOffset(type, fieldName);
             return basePtr.Sum(offset);
         }
         public static int GetOffset(Type type, string fieldName)
@@ -74,14 +74,14 @@ namespace HamsterCheese.AmongUsMemory
             var format_length = length * 2;
 
             //string pointer + 12 = value
-            var strByte = HamsterCheese.AmongUsMemory.Cheese.mem.ReadBytes(offset.Sum(12).GetAddress(), format_length); 
+            var strByte = HamsterCheese.AmongUsMemory.Cheese.mem.ReadBytes(offset.Sum(12).GetAddress(), format_length);
 
-            StringBuilder sb = new StringBuilder(); 
+            StringBuilder sb = new StringBuilder();
             for (int i = 0; i < strByte.Length; i += 2)
             {
                 // english = 1byte
-                if (strByte[i + 1] == 0) 
-                    sb.Append((char)strByte[i]); 
+                if (strByte[i + 1] == 0)
+                    sb.Append((char)strByte[i]);
                 // korean & unicode = 2byte
                 else
                     sb.Append(System.Text.Encoding.Unicode.GetString(new byte[] { strByte[i], strByte[i + 1] }));

@@ -224,7 +224,7 @@ namespace ProcessUtil
             };
 
             int codeLen = SEHBegin.Length + inline.Length + SEHEnd.Length;
-            IntPtr destination = this.MemAlloc((uint) codeLen + 4);
+            IntPtr destination = this.MemAlloc((uint)codeLen + 4);
             Buffer.BlockCopy(BitConverter.GetBytes((int)param), 0, inline, 1, 4);
             int SEHandler = (int)destination + SEHBegin.Length + inline.Length; //ㅇ
             Buffer.BlockCopy(BitConverter.GetBytes(SEHandler), 0, SEHBegin, 1, 4);
@@ -244,7 +244,7 @@ namespace ProcessUtil
         {
             float ret = 0;
 
-            byte[] inline = { 0x68,0,0,0,0,0xFF, 0x15, 0, 0, 0, 0, 0xD9, 0x1D, 0, 0, 0, 0, 0xA1, 0, 0, 0, 0,0x59, 0xC3,0,0,0,0,0,0,0,0 };
+            byte[] inline = { 0x68, 0, 0, 0, 0, 0xFF, 0x15, 0, 0, 0, 0, 0xD9, 0x1D, 0, 0, 0, 0, 0xA1, 0, 0, 0, 0, 0x59, 0xC3, 0, 0, 0, 0, 0, 0, 0, 0 };
 
             IntPtr destination = this.MemAlloc((uint)inline.Length);
 
@@ -306,7 +306,7 @@ namespace ProcessUtil
             int bytesRead = 0;
             byte[] buffer = new byte[size];
 
-            bool success = ReadProcessMemory(this.m_Handle, BaseAddress, buffer, (UIntPtr) size, out bytesRead);
+            bool success = ReadProcessMemory(this.m_Handle, BaseAddress, buffer, (UIntPtr)size, out bytesRead);
 
             if (!success)
                 buffer = null;

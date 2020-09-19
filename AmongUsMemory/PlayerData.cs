@@ -15,7 +15,7 @@ namespace HamsterCheese.AmongUsMemory
         #endregion
 
         public PlayerControl Instance;
-        public System.Action<Vector2, byte> onDie; 
+        public System.Action<Vector2, byte> onDie;
         public IntPtr PlayerControl_GetData_Offset = IntPtr.Zero;
 
 
@@ -50,7 +50,7 @@ namespace HamsterCheese.AmongUsMemory
             {
                 if (playerInfoOffset_ptr == IntPtr.Zero)
                 {
-                    var ptr =  Methods.Call_PlayerControl_GetData(this.offset_ptr);
+                    var ptr = Methods.Call_PlayerControl_GetData(this.offset_ptr);
                     playerInfoOffset = ptr.GetAddress();
                     PlayerInfo pInfo = Utils.FromBytes<PlayerInfo>(Cheese.mem.ReadBytes(playerInfoOffset, Utils.SizeOf<PlayerInfo>()));
                     playerInfoOffset_ptr = new IntPtr(ptr);
@@ -69,7 +69,7 @@ namespace HamsterCheese.AmongUsMemory
         }
         private PlayerInfo? m_pInfo = null;
 
-        
+
         public LightSource LightSource
         {
             get
@@ -78,7 +78,7 @@ namespace HamsterCheese.AmongUsMemory
                 Console.WriteLine("light source : " + lsPtr.GetAddress());
                 var lsBytes = Cheese.mem.ReadBytes(lsPtr.GetAddress(), Utils.SizeOf<LightSource>());
                 var ls = Utils.FromBytes<LightSource>(lsBytes);
-                return ls; 
+                return ls;
             }
         }
         public void WriteMemory_LightRange(float value)
@@ -89,7 +89,7 @@ namespace HamsterCheese.AmongUsMemory
 
         public void WriteMemory_Impostor(byte value)
         {
-            var targetPointer = Utils.GetMemberPointer(playerInfoOffset_ptr, typeof(PlayerInfo), "IsImpostor"); 
+            var targetPointer = Utils.GetMemberPointer(playerInfoOffset_ptr, typeof(PlayerInfo), "IsImpostor");
             Cheese.mem.WriteMemory(targetPointer.GetAddress(), "byte", value.ToString());
         }
         /// <summary>
@@ -111,30 +111,30 @@ namespace HamsterCheese.AmongUsMemory
             Cheese.mem.WriteMemory(targetPointer.GetAddress(), "float", value.ToString());
         }
 
-        
-        
+
+
         public void StopObserveState()
         {
             var key = Tokens.ContainsKey("ObserveState");
-            if(key)
+            if (key)
             {
                 if (Tokens["ObserveState"].IsCancellationRequested == false)
                 {
                     Tokens["ObserveState"].Cancel();
                     Tokens.Remove("ObserveState");
                 }
-            } 
+            }
         }
         public void StartObserveState()
         {
-            if(Tokens.ContainsKey("ObserveState"))
+            if (Tokens.ContainsKey("ObserveState"))
             {
                 Console.WriteLine("Already Observed!");
                 return;
             }
             else
             {
-                CancellationTokenSource cts = new CancellationTokenSource(); 
+                CancellationTokenSource cts = new CancellationTokenSource();
                 Task.Factory.StartNew(() =>
                 {
                     while (true)
@@ -147,13 +147,13 @@ namespace HamsterCheese.AmongUsMemory
                                 onDie?.Invoke(Position, PlayerInfo.Value.ColorId);
                             }
                         }
-                        System.Threading.Thread.Sleep(25); 
+                        System.Threading.Thread.Sleep(25);
                     }
                 }, cts.Token);
 
                 Tokens.Add("ObserveState", cts);
             }
-          
+
         }
 
         public Vector2 Position
@@ -192,7 +192,7 @@ namespace HamsterCheese.AmongUsMemory
                 int _offset_vec2_position = 60;
                 int _offset_vec2_sizeOf = 8;
                 var netTransform = ((int)Instance.NetTransform + _offset_vec2_position).ToString("X");
-                var vec2Data= Cheese.mem.ReadBytes($"{netTransform}",_offset_vec2_sizeOf); // 주소로부터 8바이트 읽는다   
+                var vec2Data = Cheese.mem.ReadBytes($"{netTransform}", _offset_vec2_sizeOf); // 주소로부터 8바이트 읽는다   
                 if (vec2Data != null && vec2Data.Length != 0)
                 {
                     var vec2 = Utils.FromBytes<Vector2>(vec2Data);
@@ -218,7 +218,7 @@ namespace HamsterCheese.AmongUsMemory
                 int _offset_vec2_position = 80;
                 int _offset_vec2_sizeOf = 8;
                 var netTransform = ((int)Instance.NetTransform + _offset_vec2_position).ToString("X");
-                var vec2Data= Cheese.mem.ReadBytes($"{netTransform}",_offset_vec2_sizeOf); // 주소로부터 8바이트 읽는다  
+                var vec2Data = Cheese.mem.ReadBytes($"{netTransform}", _offset_vec2_sizeOf); // 주소로부터 8바이트 읽는다  
                 if (vec2Data != null && vec2Data.Length != 0)
                 {
                     var vec2 = Utils.FromBytes<Vector2>(vec2Data);
@@ -236,7 +236,7 @@ namespace HamsterCheese.AmongUsMemory
         }
 
 
- 
+
 
     }
 }

@@ -13,13 +13,13 @@ namespace YourCheese
     {
         static int tableWidth = 75;
 
-       
-        static List<PlayerData> playerDatas = new List<PlayerData>(); 
+
+        static List<PlayerData> playerDatas = new List<PlayerData>();
         static void UpdateCheat()
         {
-       
+
             while (true)
-            { 
+            {
                 Console.Clear();
                 Console.WriteLine("Test Read Player Datas..");
                 PrintRow("offset", "Name", "OwnerId", "PlayerId", "spawnid", "spawnflag");
@@ -30,52 +30,54 @@ namespace YourCheese
                     if (data.IsLocalPlayer)
                         Console.ForegroundColor = ConsoleColor.Green;
                     if (data.PlayerInfo.Value.IsDead == 1)
-                        Console.ForegroundColor = ConsoleColor.Red; 
+                        Console.ForegroundColor = ConsoleColor.Red;
 
                     var Name = HamsterCheese.AmongUsMemory.Utils.ReadString(data.PlayerInfo.Value.PlayerName);
-                   PrintRow($"{(data.IsLocalPlayer == true ? "Me->" : "")}{data.offset_str}", $"{Name}", $"{data.Instance.OwnerId}", $"{data.Instance.PlayerId}", $"{data.Instance.SpawnId}", $"{data.Instance.SpawnFlags}");
-                   Console.ForegroundColor = ConsoleColor.White; 
-            
-                   PrintLine();
-                }  
+                    PrintRow($"{(data.IsLocalPlayer == true ? "Me->" : "")}{data.offset_str}", $"{Name}", $"{data.Instance.OwnerId}", $"{data.Instance.PlayerId}", $"{data.Instance.SpawnId}", $"{data.Instance.SpawnFlags}");
+                    Console.ForegroundColor = ConsoleColor.White;
+
+                    PrintLine();
+                }
                 System.Threading.Thread.Sleep(100);
             }
         }
+
         static void Main(string[] args)
         {
             // Cheat Init
             if (HamsterCheese.AmongUsMemory.Cheese.Init())
-            { 
+            {
                 // Update Player Data When Every Game
                 HamsterCheese.AmongUsMemory.Cheese.ObserveShipStatus((x) =>
                 {
-                    
-                    foreach(var player in playerDatas)
+
+                    foreach (var player in playerDatas)
                     {
                         player.StopObserveState();
                     }
 
 
                     playerDatas = HamsterCheese.AmongUsMemory.Cheese.GetAllPlayers();
-                    
-                  
+
+
                     foreach (var player in playerDatas)
                     {
-                        player.onDie += (pos, colorId) => {
+                        player.onDie += (pos, colorId) =>
+                        {
                             Console.WriteLine("OnPlayerDied! Color ID :" + colorId);
-                        }; 
+                        };
                         // player state check
                         player.StartObserveState();
                     }
 
-                
+
                 });
 
                 // Cheat Logic
                 CancellationTokenSource cts = new CancellationTokenSource();
                 Task.Factory.StartNew(
                     UpdateCheat
-                , cts.Token); 
+                , cts.Token);
             }
 
             System.Threading.Thread.Sleep(1000000);
@@ -98,7 +100,7 @@ namespace YourCheese
 
             Console.WriteLine(row);
 
-            
+
         }
 
         static string AlignCentre(string text, int width)
@@ -113,7 +115,7 @@ namespace YourCheese
             {
                 return text.PadRight(width - (width - text.Length) / 2).PadLeft(width);
             }
-        } 
+        }
     }
 }
 

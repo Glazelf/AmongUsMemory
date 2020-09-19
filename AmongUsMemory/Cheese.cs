@@ -48,7 +48,7 @@ namespace HamsterCheese.AmongUsMemory
                     Console.WriteLine("OnShipStatusChanged");
                 }
                 else
-                { 
+                {
 
                 }
             }
@@ -70,26 +70,26 @@ namespace HamsterCheese.AmongUsMemory
         }
 
         public static ShipStatus GetShipStatus()
-        { 
+        {
             ShipStatus shipStatus = new ShipStatus();
             byte[] shipAob = Cheese.mem.ReadBytes(Pattern.ShipStatus_Pointer, Utils.SizeOf<ShipStatus>());
             var aobStr = MakeAobString(shipAob, 4, "00 00 00 00 ?? ?? ?? ??");
-            var aobResults = Cheese.mem.AoBScan(aobStr, true, true); 
-            aobResults.Wait();  
+            var aobResults = Cheese.mem.AoBScan(aobStr, true, true);
+            aobResults.Wait();
             foreach (var result in aobResults.Result)
             {
 
                 byte[] resultByte = Cheese.mem.ReadBytes(result.GetAddress(), Utils.SizeOf<ShipStatus>());
-                ShipStatus resultInst = Utils.FromBytes<ShipStatus>(resultByte); 
+                ShipStatus resultInst = Utils.FromBytes<ShipStatus>(resultByte);
                 if (resultInst.AllVents != IntPtr.Zero && resultInst.NetId < uint.MaxValue - 10000)
                 {
                     if (resultInst.MapScale < 6470545000000 && resultInst.MapScale > 0.1f)
-                    {  
-                        shipStatus = resultInst;  
+                    {
+                        shipStatus = resultInst;
                         Console.WriteLine(result.GetAddress());
                     }
                 }
-            }  
+            }
             return shipStatus;
         }
 
@@ -125,19 +125,19 @@ namespace HamsterCheese.AmongUsMemory
         }
         public static List<PlayerData> GetAllPlayers()
         {
-            List<PlayerData > datas = new List<PlayerData>();
+            List<PlayerData> datas = new List<PlayerData>();
 
             // find player pointer
             byte[] playerAoB = Cheese.mem.ReadBytes(Pattern.PlayerControl_Pointer, Utils.SizeOf<PlayerControl>());
             // aob pattern
-            string aobData = MakeAobString(playerAoB, 4, "?? ?? ?? ??"); 
+            string aobData = MakeAobString(playerAoB, 4, "?? ?? ?? ??");
             // get result 
             var result = Cheese.mem.AoBScan(aobData, true, true);
             result.Wait();
 
 
 
-            var results =    result.Result;
+            var results = result.Result;
             // real-player
             foreach (var x in results)
             {

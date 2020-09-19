@@ -6,7 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace HamsterCheese. AmongUsMemory
+namespace HamsterCheese.AmongUsMemory
 {
     public class CallAttribute : System.Attribute { }
     public class InitAttribute : System.Attribute { }
@@ -27,37 +27,37 @@ namespace HamsterCheese. AmongUsMemory
                 aobScan.Wait();
                 if (aobScan.Result.Count() == 1)
                 {
-                    PlayerControl_GetDataPTR = (IntPtr)aobScan.Result.First(); 
+                    PlayerControl_GetDataPTR = (IntPtr)aobScan.Result.First();
                 }
             }
         }
 
         [Call]
         public static int Call_PlayerControl_GetData(IntPtr playerInfoPtr)
-        { 
+        {
             Console.WriteLine("Call_PlayerControl_GetData");
             if (PlayerControl_GetDataPTR != IntPtr.Zero)
             {
                 var ptr = PlayerControl_GetDataPTR;
-                var playerInfoAddress = Cheese.ProcessMemory.CallFunction(ptr, playerInfoPtr); 
+                var playerInfoAddress = Cheese.ProcessMemory.CallFunction(ptr, playerInfoPtr);
                 return playerInfoAddress;
-            }  
+            }
             return -1;
         }
         public static void Init()
         {
-            var methods = typeof(Methods).GetMethods(); 
-            foreach(var m in methods)
+            var methods = typeof(Methods).GetMethods();
+            foreach (var m in methods)
             {
-                var atts = m.GetCustomAttributes(true); 
-                foreach(var att in atts)
-                { 
+                var atts = m.GetCustomAttributes(true);
+                foreach (var att in atts)
+                {
                     if (att.GetType() == typeof(InitAttribute))
-                    { 
+                    {
                         m.Invoke(null, null);
                     }
                 }
-            } 
+            }
         }
     }
 }
