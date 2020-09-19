@@ -1,5 +1,4 @@
-﻿
-using HamsterCheese.AmongUsMemory;
+﻿using HamsterCheese.AmongUsMemory;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,23 +10,26 @@ namespace YourCheese
 {
     class Program
     {
-        static int tableWidth = 75;
+        static int tableWidth = 100;
         static List<PlayerData> playerDatas = new List<PlayerData>();
         static void UpdateCheat()
         {
             while (true)
             {
                 Console.Clear();
-                PrintRow("offset", "Name", "Color", "Role", "OwnerId", "PlayerId", "spawnid", "spawnflag");
+                PrintRow("Offset", "Name", "Color", "Role", "Status", "OwnerId", "PlayerId", "SpawnId", "SpawnFlag");
                 PrintLine();
 
                 foreach (var data in playerDatas)
                 {
                     var roleName = "Crewmate";
+                    var aliveStatus = "Alive";
                     if (data.IsLocalPlayer)
                         Console.ForegroundColor = ConsoleColor.Green;
-                    if (data.PlayerInfo.Value.IsDead == 1)
+                    if (data.PlayerInfo.Value.IsDead == 1) {
                         Console.ForegroundColor = ConsoleColor.Red;
+                        aliveStatus = "Dead";
+                    }
                     if (data.PlayerInfo.Value.IsImpostor == 1) {
                         Console.ForegroundColor = ConsoleColor.Cyan;
                         roleName = "Impostor";
@@ -74,7 +76,7 @@ namespace YourCheese
                             break;
                     }
                     var Name = HamsterCheese.AmongUsMemory.Utils.ReadString(data.PlayerInfo.Value.PlayerName);
-                    PrintRow($"{(data.IsLocalPlayer == true ? "Me->" : "")}{data.offset_str}", $"{Name}", $"{colorName}", $"{roleName}", $"{data.Instance.OwnerId}", $"{data.Instance.PlayerId}", $"{data.Instance.SpawnId}", $"{data.Instance.SpawnFlags}");
+                    PrintRow($"{(data.IsLocalPlayer == true ? "Me->" : "")}{data.offset_str}", $"{Name}", $"{colorName}", $"{roleName}", $"{aliveStatus}", $"{data.Instance.OwnerId}", $"{data.Instance.PlayerId}", $"{data.Instance.SpawnId}", $"{data.Instance.SpawnFlags}");
                     Console.ForegroundColor = ConsoleColor.White;
                     PrintLine();
                 }
