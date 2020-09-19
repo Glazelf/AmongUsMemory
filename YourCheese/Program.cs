@@ -34,6 +34,10 @@ namespace YourCheese
                         Console.ForegroundColor = ConsoleColor.Cyan;
                         roleName = "Impostor";
                     }
+                    if(data.PlayerInfo.Value.Disconnected == 1) {
+                        Console.ForegroundColor = ConsoleColor.Magenta;
+                        aliveStatus = "Disconnected";
+                    }
 
                     var colorName = "";
                     switch (data.PlayerInfo.Value.ColorId)
