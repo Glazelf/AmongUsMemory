@@ -25,3 +25,10 @@ C:\Users\shlif\OneDrive\Desktop\Github\AmongUsMemory\AmongUsMemory\obj\Debug\Amo
 C:\Users\shlif\OneDrive\Desktop\Github\AmongUsMemory\AmongUsMemory\obj\Debug\AmongUsMemory.dll
 C:\Users\shlif\OneDrive\Desktop\Github\AmongUsMemory\AmongUsMemory\obj\Debug\AmongUsMemory.pdb
 C:\Users\shlif\OneDrive\Desktop\Github\AmongUsMemory\AmongUsMemory\obj\Debug\AmongUsMemory.csprojAssemblyReference.cache
+C:\Users\Glaze\Documents\Code\AmongUsMemory\AmongUsMemory\bin\Debug\AmongUsMemory.dll
+C:\Users\Glaze\Documents\Code\AmongUsMemory\AmongUsMemory\bin\Debug\AmongUsMemory.pdb
+C:\Users\Glaze\Documents\Code\AmongUsMemory\AmongUsMemory\obj\Debug\AmongUsMemory.csprojAssemblyReference.cache
+C:\Users\Glaze\Documents\Code\AmongUsMemory\AmongUsMemory\obj\Debug\AmongUsMemory.csproj.CoreCompileInputs.cache
+C:\Users\Glaze\Documents\Code\AmongUsMemory\AmongUsMemory\obj\Debug\AmongUsMemory.csproj.CopyComplete
+C:\Users\Glaze\Documents\Code\AmongUsMemory\AmongUsMemory\obj\Debug\AmongUsMemory.dll
+C:\Users\Glaze\Documents\Code\AmongUsMemory\AmongUsMemory\obj\Debug\AmongUsMemory.pdb
