@@ -19,7 +19,7 @@ namespace YourCheese
             {
                 Console.Clear();
                 Console.WriteLine("Test Read Player Datas..");
-                PrintRow("offset", "Name", "OwnerId", "PlayerId", "spawnid", "spawnflag");
+                PrintRow("offset", "Name", "OwnerId", "PlayerId", "Color", "spawnid", "spawnflag");
                 PrintLine();
 
                 foreach (var data in playerDatas)
@@ -31,8 +31,48 @@ namespace YourCheese
                     if (data.PlayerInfo.Value.IsImpostor == 1)
                         Console.ForegroundColor = ConsoleColor.Blue;
 
+                    var colorName = "";
+                    switch (data.PlayerInfo.Value.ColorId)
+                    {
+                        case 0:
+                            colorName = "Red";
+                            break;
+                        case 1:
+                            colorName = "Blue";
+                            break;
+                        case 2:
+                            colorName = "Green";
+                            break;
+                        case 3:
+                            colorName = "Pink";
+                            break;
+                        case 4:
+                            colorName = "Orange";
+                            break;
+                        case 5:
+                            colorName = "Yellow";
+                            break;
+                        case 6:
+                            colorName = "Black";
+                            break;
+                        case 7:
+                            colorName = "White";
+                            break;
+                        case 8:
+                            colorName = "Purple";
+                            break;
+                        case 9:
+                            colorName = "Brown";
+                            break;
+                        case 10:
+                            colorName = "Cyan";
+                            break;
+                        case 11:
+                            colorName = "Lime";
+                            break;
+                    }
                     var Name = HamsterCheese.AmongUsMemory.Utils.ReadString(data.PlayerInfo.Value.PlayerName);
-                    PrintRow($"{(data.IsLocalPlayer == true ? "Me->" : "")}{data.offset_str}", $"{Name}", $"{data.Instance.OwnerId}", $"{data.Instance.PlayerId}", $"{data.Instance.SpawnId}", $"{data.Instance.SpawnFlags}");
+                    PrintRow($"{(data.IsLocalPlayer == true ? "Me->" : "")}{data.offset_str}", $"{Name}", $"{data.Instance.OwnerId}", $"{data.Instance.PlayerId}", $"{colorName}", $"{data.Instance.SpawnId}", $"{data.Instance.SpawnFlags}");
                     Console.ForegroundColor = ConsoleColor.White;
                     PrintLine();
                 }
@@ -48,7 +88,6 @@ namespace YourCheese
                 // Update Player Data When Every Game
                 HamsterCheese.AmongUsMemory.Cheese.ObserveShipStatus((x) =>
                 {
-
                     foreach (var player in playerDatas)
                     {
                         player.StopObserveState();
@@ -60,7 +99,7 @@ namespace YourCheese
                     {
                         player.onDie += (pos, colorId) =>
                         {
-                            Console.WriteLine("OnPlayerDied! Color ID :" + colorId);
+                            Console.WriteLine("Player died! Color:" + colorId);
                         };
                         // player state check
                         player.StartObserveState();
