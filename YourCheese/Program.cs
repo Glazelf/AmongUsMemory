@@ -24,17 +24,20 @@ namespace YourCheese
                 {
                     var roleName = "Crewmate";
                     var aliveStatus = "Alive";
-                    if (data.IsLocalPlayer)
-                        Console.ForegroundColor = ConsoleColor.Green;
-                    if (data.PlayerInfo.Value.IsDead == 1) {
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        aliveStatus = "Dead";
-                    }
-                    if (data.PlayerInfo.Value.IsImpostor == 1) {
+                    if (data.PlayerInfo.Value.IsImpostor == 1)
+                    {
                         Console.ForegroundColor = ConsoleColor.Cyan;
                         roleName = "Impostor";
                     }
-                    if(data.PlayerInfo.Value.Disconnected == 1) {
+                    if (data.IsLocalPlayer)
+                        Console.ForegroundColor = ConsoleColor.Green;
+                    if (data.PlayerInfo.Value.IsDead == 1)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        aliveStatus = "Dead";
+                    }
+                    if (data.PlayerInfo.Value.Disconnected == 1)
+                    {
                         Console.ForegroundColor = ConsoleColor.Magenta;
                         aliveStatus = "Disconnected";
                     }
