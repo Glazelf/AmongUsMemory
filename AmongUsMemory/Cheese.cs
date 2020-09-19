@@ -82,7 +82,7 @@ namespace HamsterCheese.AmongUsMemory
                     if (resultInst.MapScale < 6470545000000 && resultInst.MapScale > 0.1f)
                     {
                         shipStatus = resultInst;
-                        Console.WriteLine(result.GetAddress());
+                        // Console.WriteLine(result.GetAddress());
                     }
                 }
             }
