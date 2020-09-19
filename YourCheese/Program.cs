@@ -12,12 +12,9 @@ namespace YourCheese
     class Program
     {
         static int tableWidth = 75;
-
-
         static List<PlayerData> playerDatas = new List<PlayerData>();
         static void UpdateCheat()
         {
-
             while (true)
             {
                 Console.Clear();
@@ -31,14 +28,15 @@ namespace YourCheese
                         Console.ForegroundColor = ConsoleColor.Green;
                     if (data.PlayerInfo.Value.IsDead == 1)
                         Console.ForegroundColor = ConsoleColor.Red;
+                    if (data.PlayerInfo.Value.IsImpostor == 1)
+                        Console.ForegroundColor = ConsoleColor.Blue;
 
                     var Name = HamsterCheese.AmongUsMemory.Utils.ReadString(data.PlayerInfo.Value.PlayerName);
                     PrintRow($"{(data.IsLocalPlayer == true ? "Me->" : "")}{data.offset_str}", $"{Name}", $"{data.Instance.OwnerId}", $"{data.Instance.PlayerId}", $"{data.Instance.SpawnId}", $"{data.Instance.SpawnFlags}");
                     Console.ForegroundColor = ConsoleColor.White;
-
                     PrintLine();
                 }
-                System.Threading.Thread.Sleep(100);
+                System.Threading.Thread.Sleep(1000);
             }
         }
 
@@ -56,9 +54,7 @@ namespace YourCheese
                         player.StopObserveState();
                     }
 
-
                     playerDatas = HamsterCheese.AmongUsMemory.Cheese.GetAllPlayers();
-
 
                     foreach (var player in playerDatas)
                     {
@@ -69,8 +65,6 @@ namespace YourCheese
                         // player state check
                         player.StartObserveState();
                     }
-
-
                 });
 
                 // Cheat Logic
@@ -79,7 +73,6 @@ namespace YourCheese
                     UpdateCheat
                 , cts.Token);
             }
-
             System.Threading.Thread.Sleep(1000000);
         }
 
@@ -97,10 +90,7 @@ namespace YourCheese
             {
                 row += AlignCentre(column, width) + "|";
             }
-
             Console.WriteLine(row);
-
-
         }
 
         static string AlignCentre(string text, int width)
