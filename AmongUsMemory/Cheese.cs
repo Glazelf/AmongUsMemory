@@ -11,7 +11,6 @@ namespace HamsterCheese.AmongUsMemory
 {
     public static class Cheese
     {
-
         public static Memory.Mem mem = new Memory.Mem();
         public static ProcessMemory ProcessMemory = null;
         public static bool Init()
@@ -33,7 +32,6 @@ namespace HamsterCheese.AmongUsMemory
         private static ShipStatus shipStatus;
         static Dictionary<string, CancellationTokenSource> Tokens = new Dictionary<string, CancellationTokenSource>();
         static System.Action<uint> onChangeShipStatus;
-
         static void _ObserveShipStatus()
         {
             while (Tokens.ContainsKey("ObserveShipStatus") && Tokens["ObserveShipStatus"].IsCancellationRequested == false)
@@ -48,11 +46,10 @@ namespace HamsterCheese.AmongUsMemory
                 }
                 else
                 {
-
+                    // Else code here
                 }
             }
         }
-
 
         public static void ObserveShipStatus(System.Action<uint> onChangeShipStatus)
         {
@@ -134,8 +131,6 @@ namespace HamsterCheese.AmongUsMemory
             var result = Cheese.mem.AoBScan(aobData, true, true);
             result.Wait();
 
-
-
             var results = result.Result;
             // real-player
             foreach (var x in results)
@@ -156,7 +151,5 @@ namespace HamsterCheese.AmongUsMemory
             Console.WriteLine("data => " + datas.Count);
             return datas;
         }
-
-
     }
 }
